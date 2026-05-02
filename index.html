@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en" data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-direction="ltr" dir="ltr" data-pc-theme="light">
+  <head>
+    <title>Sign-in - PHINMA TradeHub</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="PHINMA TradeHub Login" />
+    <meta name="keywords" content="PHINMA, TradeHub, Login" />
+    <meta name="author" content="Sniper 2025" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/assets/fonts/phosphor/duotone/style.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/tabler-icons.min.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/feather.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/material.css" />
+    <link rel="stylesheet" href="./dist/assets/css/style.css" id="main-style-link" />
+    <link rel="stylesheet" href="./dist/assets/css/login.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      .login-wrapper {
+    margin-top: 220px;
+  }
+
+  @media (max-width: 768px) {
+    .login-wrapper {
+      margin-top: 90px;
+    }
+  }
+      .message-hidden {
+        height: 0;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .message-show {
+        min-height: 32px;
+        margin-top: 4px;
+        margin-bottom: 2px;
+        padding: 4px 8px;
+        opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+        .login-wrapper {
+          margin-top: 70px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="login-page" style="background-image: url('./dist/assets/images/bg.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+
+    <div class="header">
+      <div class="logo">
+        <img src="./dist/assets/images/upang_logo.png" alt="University Logo">
+      </div>
+      <h6>PHINMA TradeHub</h6>
+    </div>
+
+    <div class="login-wrapper flex justify-center items-start min-h-screen pb-10 px-4">
+      <div class="bg-gray-100 rounded-3xl px-6 md:px-12 py-8 shadow-lg flex items-center justify-center w-full max-w-xl">
+        <div class="w-full max-w-sm">
+          <form id="loginForm" class="space-y-2 text-center">
+            <div class="mb-1">
+              <h1 class="text-4xl font-bold text-green-900 border-b-2 border-black pb-1 inline-block">
+                Sign-in
+              </h1>
+            </div>
+
+            <div
+              id="messageBox"
+              class="message-hidden text-center font-bold rounded transition-all duration-200"
+            ></div>
+
+            <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3 mt-1">
+              <i class="bi bi-people-fill text-black"></i>
+              <input 
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Student Number or Admin Username"
+                class="w-full focus:outline-none bg-transparent"
+                required
+              >
+            </div>
+
+            <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+              <i class="bi bi-key-fill text-black"></i>
+
+              <input 
+               type="password"
+                id="password"
+              name="password"
+              placeholder="Password"
+              class="w-full focus:outline-none bg-transparent"
+              required
+            >
+
+            <i 
+              class="bi bi-eye-slash cursor-pointer text-gray-600"
+              id="togglePassword"
+            ></i>
+            </div>
+
+            <div class="text-left pt-1">
+              <a href="forgot-password.html" class="text-green-800 font-semibold hover:underline text-sm">
+                Forgot Password?
+              </a>
+            </div>
+
+            <div class="text-center pt-1">
+              <button 
+                type="submit" 
+                id="loginBtn"
+                class="up-green text-white py-3 px-20 rounded font-medium transition hover:opacity-90"
+              >
+                Sign-in
+              </button>
+            </div>
+            
+            <div class="text-center mt-3">
+              <p class="text-gray-600">Don't have an account?</p>
+              <a href="register.html" class="text-green-800 font-semibold hover:underline">Register here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+      const supabaseUrl = 'https://ggzywautymbydgyaeoyf.supabase.co';
+      const supabasePublishableKey = 'sb_publishable_RRqftVnS5kBVcTKGAtQdag_JtM0LCn4';
+      const supabase = createClient(supabaseUrl, supabasePublishableKey);
+
+      const loginForm = document.getElementById('loginForm');
+      const messageBox = document.getElementById('messageBox');
+      const loginBtn = document.getElementById('loginBtn');
+
+      function hideMessage() {
+        messageBox.textContent = '';
+        messageBox.className = 'message-hidden text-center font-bold rounded transition-all duration-200';
+      }
+
+      function showMessage(message, isError = true) {
+        messageBox.textContent = message;
+        messageBox.className =
+          'message-show flex items-center justify-center text-center font-bold rounded transition-all duration-200 ' +
+          (isError ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600');
+
+        clearTimeout(showMessage._timer);
+        showMessage._timer = setTimeout(() => {
+          hideMessage();
+        }, 5000);
+      }
+
+      async function hashPassword(password) {
+        const enc = new TextEncoder();
+        const data = enc.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      function looksHashed(value) {
+        return typeof value === 'string' && /^[0-9a-f]{64}$/i.test(value);
+      }
+
+      async function tryAdminLogin(username, password) {
+        const { data: adminRows, error: adminError } = await supabase
+          .from('admins')
+          .select('id, username, password, admin_name')
+          .eq('username', username);
+
+        if (adminError) {
+          console.error('Admin query error:', adminError);
+          return { handled: false, success: false };
+        }
+
+        if (!adminRows || adminRows.length === 0) {
+          return { handled: false, success: false };
+        }
+
+        const admin = adminRows[0];
+
+        if (admin.password !== password) {
+          showMessage('Invalid admin password.');
+          return { handled: true, success: false };
+        }
+
+        const adminName = admin.admin_name || admin.username || username;
+        sessionStorage.setItem('admin_logged_in', 'true');
+        sessionStorage.setItem('adminName', adminName);
+
+        window.location.href = './dist/admin/dashboard.html';
+        return { handled: true, success: true };
+      }
+
+      async function tryStudentLogin(studentNumber, password) {
+        const { data: student, error: studentError } = await supabase
+          .from('students')
+          .select('id, studentNumber, studentName, email, course_block, password, auth_user_id')
+          .eq('studentNumber', studentNumber)
+          .maybeSingle();
+
+        if (studentError) {
+          console.error('Student login error:', studentError);
+          showMessage('An error occurred. Please try again.');
+          return false;
+        }
+
+        if (!student) {
+          showMessage('Invalid student number or password');
+          return false;
+        }
+
+        if (student.auth_user_id) {
+          if (!student.email) {
+            showMessage('No email found for this student account.');
+            return false;
+          }
+
+          const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
+            email: student.email,
+            password
+          });
+
+          if (signInError) {
+            console.error('Student auth sign-in error:', signInError);
+            showMessage('Invalid student number or password');
+            return false;
+          }
+
+          const authUser = authData?.user;
+
+          if (!authUser) {
+            showMessage('Unable to sign in.');
+            return false;
+          }
+
+          if (authUser.id !== student.auth_user_id) {
+            await supabase.auth.signOut();
+            showMessage('Student account link mismatch. Please contact admin.');
+            return false;
+          }
+
+          sessionStorage.setItem('user_logged_in', 'true');
+          sessionStorage.setItem('studentName', student.studentName || '');
+          sessionStorage.setItem('studentEmail', student.email || '');
+          sessionStorage.setItem('course_block', student.course_block || '');
+          sessionStorage.setItem('studentNumber', student.studentNumber || '');
+          sessionStorage.setItem('studentID', student.id || '');
+          sessionStorage.setItem('authUserID', authUser.id);
+
+          window.location.href = './dist/user/browse.html';
+          return true;
+        }
+
+        const storedPassword = student.password;
+
+        if (looksHashed(storedPassword)) {
+          const hashedInput = await hashPassword(password);
+
+          if (storedPassword !== hashedInput) {
+            showMessage('Invalid student number or password');
+            return false;
+          }
+        } else {
+          if (storedPassword !== password) {
+            showMessage('Invalid student number or password');
+            return false;
+          }
+
+          try {
+            const newHash = await hashPassword(password);
+            const { error: upgradeError } = await supabase
+              .from('students')
+              .update({ password: newHash })
+              .eq('id', student.id);
+
+            if (upgradeError) {
+              console.error('Error upgrading password to hash:', upgradeError);
+            }
+          } catch (upgradeErr) {
+            console.error('Unexpected error while upgrading password:', upgradeErr);
+          }
+        }
+
+        sessionStorage.setItem('user_logged_in', 'true');
+        sessionStorage.setItem('studentName', student.studentName || '');
+        sessionStorage.setItem('studentEmail', student.email || '');
+        sessionStorage.setItem('course_block', student.course_block || '');
+        sessionStorage.setItem('studentNumber', student.studentNumber || '');
+        sessionStorage.setItem('studentID', student.id || '');
+
+        window.location.href = './dist/user/browse.html';
+        return true;
+      }
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        hideMessage();
+
+        if (!username || !password) {
+          showMessage('Please enter username and password');
+          return;
+        }
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Signing in...';
+
+        try {
+          const adminResult = await tryAdminLogin(username, password);
+          if (adminResult.handled) return;
+
+          await tryStudentLogin(username, password);
+        } catch (error) {
+          console.error('Login error:', error);
+          showMessage('An error occurred. Please try again.');
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Sign-in';
+        }
+      });
+    </script>
+    <script>
+  const passwordInput = document.getElementById('password');
+  const togglePassword = document.getElementById('togglePassword');
+
+  togglePassword.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+
+    passwordInput.type = isPassword ? 'text' : 'password';
+
+    // change icon
+    togglePassword.classList.toggle('bi-eye');
+    togglePassword.classList.toggle('bi-eye-slash');
+  });
+</script>
+
+    <script src="./dist/assets/js/plugins/simplebar.min.js"></script>
+    <script src="./dist/assets/js/plugins/popper.min.js"></script>
+    <script src="./dist/assets/js/icon/custom-icon.js"></script>
+    <script src="./dist/assets/js/plugins/feather.min.js"></script>
+    <script src="./dist/assets/js/component.js"></script>
+    <script src="./dist/assets/js/theme.js"></script>
+    <script src="./dist/assets/js/script.js"></script>
+
+    <script>
+      layout_change('false');
+      layout_theme_sidebar_change('dark');
+      change_box_container('false');
+      layout_caption_change('true');
+      layout_rtl_change('false');
+      preset_change('preset-1');
+      main_layout_change('vertical');
+    </script>
+  </body>
+</html>

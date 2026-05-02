@@ -1,0 +1,792 @@
+<!doctype html> 
+<html lang="en" data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-direction="ltr" dir="ltr" data-pc-theme="light">
+  <head>
+    <title>Register - PHINMA TradeHub</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="PHINMA TradeHub Registration" />
+    <meta name="keywords" content="PHINMA, TradeHub, Register" />
+    <meta name="author" content="Sniper 2025" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./dist/assets/fonts/phosphor/duotone/style.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/tabler-icons.min.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/feather.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="./dist/assets/fonts/material.css" />
+    <link rel="stylesheet" href="./dist/assets/css/style.css" id="main-style-link" />
+    <link rel="stylesheet" href="./dist/assets/css/login.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      .register-wrapper {
+        margin-top: 220px;
+      }
+
+      @media (max-width: 768px) {
+        .register-wrapper {
+          margin-top: 100px;
+        }
+      }
+
+      .role-option {
+        border: 1px solid #d1d5db;
+        transition: 0.2s ease;
+      }
+
+      .role-option:hover {
+        border-color: #166534;
+        background-color: #f0fdf4;
+      }
+
+      .role-option input[type="radio"] {
+        accent-color: #166534;
+      }
+    </style>
+  </head>
+
+  <body
+    class="login-page"
+    style="background-image: url('./dist/assets/images/bg.png'); background-size: cover; background-position: center; background-attachment: fixed;"
+  >
+
+    <div class="header">
+      <div class="logo">
+        <img src="./dist/assets/images/upang_logo.png" alt="University Logo">
+      </div>
+      <h6>PHINMA TradeHub</h6>
+    </div>
+
+    <div class="register-wrapper flex justify-center items-start min-h-screen pb-10 px-4">
+      <div class="bg-gray-100 rounded-3xl px-6 md:px-20 py-8 shadow-lg flex items-center justify-center w-full max-w-2xl">
+        <div class="w-full max-w-md">
+
+          <form id="registerForm" class="space-y-4 text-center">
+            <div class="inline-block">
+              <h1 class="text-4xl font-bold text-green-900 border-b-2 border-black pb-2">Register</h1>
+            </div>
+
+            <div id="regMessageBox" class="hidden text-center font-bold py-2 px-4 rounded"></div>
+
+            <div class="text-left">
+              <label class="block mb-2 font-semibold text-gray-700">Register as</label>
+              <div class="flex gap-3">
+                <label class="role-option flex items-center gap-2 bg-white rounded-2xl px-4 py-3 w-1/2 cursor-pointer">
+                  <input type="radio" name="userType" value="student" checked>
+                  <span class="text-sm font-medium">Student</span>
+                </label>
+
+                <label class="role-option flex items-center gap-2 bg-white rounded-2xl px-4 py-3 w-1/2 cursor-pointer">
+                  <input type="radio" name="userType" value="instructor">
+                  <span class="text-sm font-medium">Instructor</span>
+                </label>
+              </div>
+              <p id="userTypeError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div class="flex gap-3">
+              <div class="w-1/2 text-left">
+                <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                  <i class="bi bi-person-fill text-black"></i>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last Name"
+                    class="w-full focus:outline-none"
+                    required
+                  >
+                </div>
+                <p id="lastNameError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+              </div>
+
+              <div class="w-1/2 text-left">
+                <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                  <i class="bi bi-person-fill text-black"></i>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First Name"
+                    class="w-full focus:outline-none"
+                    required
+                  >
+                </div>
+                <p id="firstNameError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+              </div>
+            </div>
+
+            <div class="text-left">
+              <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                <i class="bi bi-credit-card-2-front text-black"></i>
+                <input
+                  type="text"
+                  id="studentNumber"
+                  name="studentNumber"
+                  placeholder="Student ID"
+                  class="w-full focus:outline-none"
+                  required
+                >
+              </div>
+              <p id="studentIdError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div id="studentFields" class="text-left">
+              <div class="flex gap-3">
+                <div class="w-1/2">
+                  <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                    <i class="bi bi-mortarboard-fill text-black"></i>
+                    <select
+                      id="course"
+                      name="course"
+                      class="w-full focus:outline-none bg-transparent"
+                    >
+                      <option value="">Select Course</option>
+                      <option value="BSIT">BSIT</option>
+                      <option value="BSCS">BSCS</option>
+                      <option value="BSIS">BSIS</option>
+                      <option value="BSBA">BSBA</option>
+                      <option value="BSA">BSA</option>
+                      <option value="BSHM">BSHM</option>
+                      <option value="BSTM">BSTM</option>
+                      <option value="BSED">BSED</option>
+                      <option value="BEED">BEED</option>
+                      <option value="BSN">BSN</option>
+                      <option value="BSCRIM">BSCRIM</option>
+                      <option value="BSCPE">BSCPE</option>
+                      <option value="BSCE">BSCE</option>
+                      <option value="BSEE">BSEE</option>
+                      <option value="BSME">BSME</option>
+                      <option value="BSPsych">BSPsych</option>
+                      <option value="ABComm">ABComm</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="w-1/2">
+                  <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                    <i class="bi bi-grid-3x3-gap-fill text-black"></i>
+                    <select
+                      id="block"
+                      name="block"
+                      class="w-full focus:outline-none bg-transparent"
+                    >
+                      <option value="">Select Block</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <p id="courseError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div id="instructorFields" class="text-left hidden">
+              <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                <i class="bi bi-building text-black"></i>
+                <select
+                  id="department"
+                  name="department"
+                  class="w-full focus:outline-none bg-transparent"
+                >
+                  <option value="">Select Department</option>
+                  <option value="SHS">SHS</option>
+                  <option value="CAHS">CAHS</option>
+                  <option value="CITE">CITE</option>
+                  <option value="CAS">CAS</option>
+                  <option value="CCJE">CCJE</option>
+                  <option value="CHTM">CHTM</option>
+                  <option value="CMA">CMA</option>
+                  <option value="CELA">CELA</option>
+                  <option value="CEA">CEA</option>
+                </select>
+              </div>
+              <p id="departmentError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div class="text-left">
+              <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                <i class="bi bi-envelope-fill text-black"></i>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="PHINMA email"
+                  class="w-full focus:outline-none"
+                  required
+                >
+              </div>
+              <p id="emailError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div class="text-left">
+              <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+                <i class="bi bi-link-45deg text-black"></i>
+                <input
+                  type="url"
+                  id="socialLink"
+                  name="socialLink"
+                  placeholder="Link to Social Media (optional)"
+                  class="w-full focus:outline-none"
+                >
+              </div>
+              <p id="socialLinkError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div class="text-left">
+              <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+              <i class="bi bi-key-fill text-black"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                class="w-full focus:outline-none bg-transparent"
+              required
+              >
+              <i
+                class="bi bi-eye-slash cursor-pointer text-gray-600"
+                id="togglePassword"
+              ></i>
+            </div>
+              <p id="passwordError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div class="text-left">
+              <div class="bg-white flex items-center rounded-2xl px-4 py-3 gap-3">
+              <i class="bi bi-key-fill text-black"></i>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Repeat Password"
+              class="w-full focus:outline-none bg-transparent"
+              required
+            >
+            <i
+              class="bi bi-eye-slash cursor-pointer text-gray-600"
+              id="toggleConfirmPassword"
+            ></i>
+          </div>
+              <p id="confirmPasswordError" class="text-red-600 text-sm font-semibold mt-1 hidden"></p>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                id="registerBtn"
+                class="up-green text-white py-2 px-20 rounded font-medium transition hover:opacity-90"
+              >
+                Register
+              </button>
+            </div>
+
+            <div class="text-center mt-4">
+              <p class="text-gray-600">Already have an account?</p>
+              <a href="index.html" class="text-green-800 font-semibold hover:underline">Sign-in here</a>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+      const supabase = createClient(
+        'https://ggzywautymbydgyaeoyf.supabase.co',
+        'sb_publishable_RRqftVnS5kBVcTKGAtQdag_JtM0LCn4'
+      );
+
+      const registerForm = document.getElementById('registerForm');
+      const regMessageBox = document.getElementById('regMessageBox');
+      const registerBtn = document.getElementById('registerBtn');
+
+      const lastNameInput = document.getElementById('lastName');
+      const firstNameInput = document.getElementById('firstName');
+      const studentIdInput = document.getElementById('studentNumber');
+      const courseInput = document.getElementById('course');
+      const blockInput = document.getElementById('block');
+      const departmentInput = document.getElementById('department');
+      const emailInput = document.getElementById('email');
+      const socialLinkInput = document.getElementById('socialLink');
+      const passwordInput = document.getElementById('password');
+      const confirmInput = document.getElementById('confirmPassword');
+      const togglePassword = document.getElementById('togglePassword');
+      const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+      const studentFields = document.getElementById('studentFields');
+      const instructorFields = document.getElementById('instructorFields');
+
+      for (let i = 1; i <= 50; i++) {
+        const option = document.createElement('option');
+        option.value = String(i).padStart(2, '0');
+        option.textContent = `Block ${String(i).padStart(2, '0')}`;
+        blockInput.appendChild(option);
+      }
+
+      function showRegMessage(message, isError = true) {
+        regMessageBox.textContent = message;
+        regMessageBox.className = isError
+          ? 'bg-red-100 text-red-600 text-center font-bold py-2 px-4 rounded'
+          : 'bg-green-100 text-green-600 text-center font-bold py-2 px-4 rounded';
+
+        regMessageBox.classList.remove('hidden');
+
+        clearTimeout(showRegMessage._timer);
+        showRegMessage._timer = setTimeout(() => {
+          regMessageBox.classList.add('hidden');
+        }, isError ? 5000 : 5000);
+      }
+
+      function showFieldError(id, message) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = message;
+        el.classList.remove('hidden');
+      }
+
+      function clearFieldError(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = '';
+        el.classList.add('hidden');
+      }
+
+      function getSelectedUserType() {
+        const checked = document.querySelector('input[name="userType"]:checked');
+        return checked ? checked.value : '';
+      }
+
+      function isValidPhinmaEmail(email) {
+        return email.trim().toLowerCase().endsWith('.up@phinmaed.com');
+      }
+
+      function isStrongPassword(password) {
+        if (password.includes(' ')) return false;
+        if (password.length < 8) return false;
+
+        const hasUpper = /[A-Z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSymbol = /[^A-Za-z0-9]/.test(password);
+
+        return hasUpper && hasNumber && hasSymbol;
+      }
+
+      function isValidSchoolId(schoolId, userType) {
+        const trimmed = schoolId.trim();
+
+        const studentPattern1 = /^\d{2}-\d{2}-\d{4}-\d{6}$/;
+        const studentPattern2 = /^\d{2}-\d{4}-\d{6}$/;
+        const instructorPattern = /^UP-\d{2}-\d{3}-F$/i;
+
+        if (userType === 'student') {
+          return studentPattern1.test(trimmed) || studentPattern2.test(trimmed);
+        }
+
+        if (userType === 'instructor') {
+          return instructorPattern.test(trimmed);
+        }
+
+        return false;
+      }
+
+      function toggleFields() {
+        const userType = getSelectedUserType();
+
+        if (userType === 'student') {
+          studentFields.classList.remove('hidden');
+          instructorFields.classList.add('hidden');
+          studentIdInput.placeholder = 'Student ID';
+          departmentInput.value = '';
+          clearFieldError('departmentError');
+        } else {
+          studentFields.classList.add('hidden');
+          instructorFields.classList.remove('hidden');
+          studentIdInput.placeholder = 'Instructor ID';
+          courseInput.value = '';
+          blockInput.value = '';
+          clearFieldError('courseError');
+        }
+
+        clearFieldError('studentIdError');
+      }
+
+      function validateSchoolIdField() {
+        const value = studentIdInput.value.trim();
+        const userType = getSelectedUserType();
+
+        if (!value) {
+          clearFieldError('studentIdError');
+          return;
+        }
+
+        if (!isValidSchoolId(value, userType)) {
+          if (userType === 'student') {
+            showFieldError(
+              'studentIdError',
+              'Invalid Student ID format. Example: 01-01-0101-010101 or 01-2324-123456.'
+            );
+          } else {
+            showFieldError(
+              'studentIdError',
+              'Invalid Instructor ID format. Example: UP-12-345-F.'
+            );
+          }
+        } else {
+          clearFieldError('studentIdError');
+        }
+      }
+
+      function validateStudentFields() {
+        const courseVal = courseInput.value.trim();
+        const blockVal = blockInput.value.trim();
+        const userType = getSelectedUserType();
+
+        if (userType !== 'student') {
+          clearFieldError('courseError');
+          return true;
+        }
+
+        if (!courseVal || !blockVal) {
+          showFieldError('courseError', 'Course and Block are required.');
+          return false;
+        }
+
+        clearFieldError('courseError');
+        return true;
+      }
+
+      function validateInstructorFields() {
+        const departmentVal = departmentInput.value.trim();
+        const userType = getSelectedUserType();
+
+        if (userType !== 'instructor') {
+          clearFieldError('departmentError');
+          return true;
+        }
+
+        if (!departmentVal) {
+          showFieldError('departmentError', 'Department is required.');
+          return false;
+        }
+
+        clearFieldError('departmentError');
+        return true;
+      }
+
+      lastNameInput.addEventListener('input', () => {
+        const value = lastNameInput.value.trim();
+        if (!value) showFieldError('lastNameError', 'Last name is required.');
+        else clearFieldError('lastNameError');
+      });
+
+      firstNameInput.addEventListener('input', () => {
+        const value = firstNameInput.value.trim();
+        if (!value) showFieldError('firstNameError', 'First name is required.');
+        else clearFieldError('firstNameError');
+      });
+
+      studentIdInput.addEventListener('input', validateSchoolIdField);
+
+
+      if (togglePassword) {
+  togglePassword.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    togglePassword.classList.toggle('bi-eye');
+    togglePassword.classList.toggle('bi-eye-slash');
+  });
+}
+
+if (toggleConfirmPassword) {
+  toggleConfirmPassword.addEventListener('click', () => {
+    const isPassword = confirmInput.type === 'password';
+    confirmInput.type = isPassword ? 'text' : 'password';
+    toggleConfirmPassword.classList.toggle('bi-eye');
+    toggleConfirmPassword.classList.toggle('bi-eye-slash');
+  });
+}
+
+      document.querySelectorAll('input[name="userType"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          toggleFields();
+          validateSchoolIdField();
+        });
+      });
+
+      courseInput.addEventListener('change', validateStudentFields);
+      blockInput.addEventListener('change', validateStudentFields);
+      departmentInput.addEventListener('change', validateInstructorFields);
+
+      emailInput.addEventListener('input', () => {
+        const value = emailInput.value.trim();
+
+        if (!value) {
+          clearFieldError('emailError');
+          return;
+        }
+
+        if (!isValidPhinmaEmail(value)) {
+          showFieldError('emailError', 'Use your PHINMA email only.');
+        } else {
+          clearFieldError('emailError');
+        }
+      });
+
+      socialLinkInput.addEventListener('input', () => {
+        const value = socialLinkInput.value.trim();
+
+        if (!value) {
+          clearFieldError('socialLinkError');
+          return;
+        }
+
+        try {
+          new URL(value);
+          clearFieldError('socialLinkError');
+        } catch {
+          showFieldError('socialLinkError', 'Please enter a valid link.');
+        }
+      });
+
+      passwordInput.addEventListener('input', () => {
+        const value = passwordInput.value;
+
+        if (!value) {
+          clearFieldError('passwordError');
+          return;
+        }
+
+        if (!isStrongPassword(value)) {
+          showFieldError(
+            'passwordError',
+            'Min 8 chars, 1 uppercase, 1 number, 1 symbol, no spaces.'
+          );
+        } else {
+          clearFieldError('passwordError');
+        }
+
+        if (confirmInput.value) {
+          if (confirmInput.value !== value) {
+            showFieldError('confirmPasswordError', 'Passwords do not match.');
+          } else {
+            clearFieldError('confirmPasswordError');
+          }
+        }
+      });
+
+      confirmInput.addEventListener('input', () => {
+        const value = confirmInput.value;
+
+        if (!value) {
+          clearFieldError('confirmPasswordError');
+          return;
+        }
+
+        if (value !== passwordInput.value) {
+          showFieldError('confirmPasswordError', 'Passwords do not match.');
+        } else {
+          clearFieldError('confirmPasswordError');
+        }
+      });
+
+      toggleFields();
+
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userType = getSelectedUserType();
+        const lastName = lastNameInput.value.trim();
+        const firstName = firstNameInput.value.trim();
+        const schoolId = studentIdInput.value.trim();
+        const emailRaw = emailInput.value.trim();
+        const socialLink = socialLinkInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPw = confirmInput.value;
+
+        const selectedCourse = courseInput.value.trim();
+        const selectedBlock = blockInput.value.trim();
+        const department = departmentInput.value.trim();
+
+        const studentName = lastName && firstName ? `${lastName}, ${firstName}` : '';
+
+        let courseBlock = '';
+
+        if (userType === 'student') {
+          courseBlock = selectedCourse && selectedBlock
+            ? `${selectedCourse}-${selectedBlock}`
+            : '';
+        } else if (userType === 'instructor') {
+          courseBlock = department;
+        }
+
+        if (!userType || !lastName || !firstName || !schoolId || !emailRaw || !password || !confirmPw) {
+          showRegMessage('Please fill in all required fields.');
+          return;
+        }
+
+        if (!isValidSchoolId(schoolId, userType)) {
+          validateSchoolIdField();
+          showRegMessage('Please correct the errors in the form.');
+          return;
+        }
+
+        if (userType === 'student' && !validateStudentFields()) {
+          showRegMessage('Please correct the errors in the form.');
+          return;
+        }
+
+        if (userType === 'instructor' && !validateInstructorFields()) {
+          showRegMessage('Please correct the errors in the form.');
+          return;
+        }
+
+        if (!isValidPhinmaEmail(emailRaw)) {
+          showFieldError('emailError', 'Use your PHINMA email only.');
+          showRegMessage('Please correct the errors in the form.');
+          return;
+        }
+
+        if (socialLink) {
+  try {
+    new URL(socialLink);
+    clearFieldError('socialLinkError');
+  } catch {
+    showFieldError('socialLinkError', 'Please enter a valid link.');
+    showRegMessage('Please correct the errors in the form.');
+    return;
+  }
+} else {
+  clearFieldError('socialLinkError');
+}
+
+        if (!isStrongPassword(password)) {
+          showFieldError('passwordError', 'Min 8 chars, 1 uppercase, 1 number, 1 symbol, no spaces.');
+          showRegMessage('Please correct the errors in the form.');
+          return;
+        }
+
+        if (password !== confirmPw) {
+          showFieldError('confirmPasswordError', 'Passwords do not match.');
+          showRegMessage('Please correct the errors in the form.');
+          return;
+        }
+
+        registerBtn.disabled = true;
+        registerBtn.textContent = 'Checking...';
+
+        try {
+          const lowerEmail = emailRaw.toLowerCase();
+
+          const { data: existingById, error: idError } = await supabase
+            .from('students')
+            .select('id')
+            .eq('studentNumber', schoolId)
+            .maybeSingle();
+
+          if (idError) {
+            console.error('Error checking School ID:', idError);
+            showRegMessage('Error checking existing School ID. Please try again.');
+            return;
+          }
+
+          if (existingById) {
+            showFieldError('studentIdError', 'This School ID is already registered.');
+            showRegMessage('School ID is already registered. Please use your existing account.');
+            return;
+          }
+
+          const { data: existingByEmail, error: emailCheckError } = await supabase
+            .from('students')
+            .select('id')
+            .eq('email', lowerEmail)
+            .maybeSingle();
+
+          if (emailCheckError) {
+            console.error('Error checking email:', emailCheckError);
+            showRegMessage('Error checking existing email. Please try again.');
+            return;
+          }
+
+          if (existingByEmail) {
+            showFieldError('emailError', 'This PHINMA email is already registered.');
+            showRegMessage('PHINMA email is already registered. Please use your existing account.');
+            return;
+          }
+
+          registerBtn.textContent = 'Creating account...';
+
+          const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+            email: lowerEmail,
+            password,
+            options: {
+              data: {
+                studentNumber: schoolId,
+                full_name: studentName,
+                user_type: userType
+              }
+            }
+          });
+
+          if (signUpError) {
+            console.error('Auth sign up error:', signUpError);
+            showRegMessage(signUpError.message || 'Failed to create account.');
+            return;
+          }
+
+          const authUser = signUpData?.user;
+
+          if (!authUser) {
+            showRegMessage('Account created partially, but no auth user was returned.');
+            return;
+          }
+
+          registerBtn.textContent = 'Saving profile...';
+
+          const insertPayload = {
+            studentName,
+            studentNumber: schoolId,
+            course_block: courseBlock,
+            email: lowerEmail,
+            socialLink,
+            user_type: userType,
+            auth_user_id: authUser.id
+          };
+
+          const { error: insertError } = await supabase
+            .from('students')
+            .insert([insertPayload]);
+
+          if (insertError) {
+            console.error('Insert error:', insertError);
+            showRegMessage('Auth account was created, but profile saving failed. Please contact admin.');
+            return;
+          }
+
+          if (signUpData.session) {
+            showRegMessage('Registration successful! Redirecting to sign-in...', false);
+            await supabase.auth.signOut();
+
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 1500);
+          } else {
+            showRegMessage('Registration successful! Please check your email before signing in.', false);
+            registerForm.reset();
+            toggleFields();
+          }
+
+        } catch (err) {
+          console.error('Registration exception:', err);
+          showRegMessage('An unexpected error occurred. Please try again.');
+        } finally {
+          registerBtn.disabled = false;
+          registerBtn.textContent = 'Register';
+        }
+      });
+    </script>
+
+  </body>
+</html>
